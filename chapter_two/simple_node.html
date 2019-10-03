@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notebook</title>
+    <!-- Icons & Stylesheets -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<!-- Include the library in the page -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!--添加maked库-->
+<script src="https://unpkg.com/marked"></script>
+
+<!-- Notebook app -->
+<div id="notebook">
+<!--    侧边栏-->
+    <aside class="side-bar">
+        <div class="toolbar">
+<!--            添加笔记按钮-->
+            <button @click="addNote"><i class="material-icons">add</i>Add notes</button>
+            <button v-bind:title="notes.length + 'note(s) already'"></button>
+        </div>
+        <!--        这里将是笔记列表-->
+    </aside>
+    <!-- Main pane -->
+<!--    <section> 是HTML5中的新标签，
+        标签定义文档中的节（section、区段）。
+        比如章节、页眉、页脚或文档中的其他部分。-->
+    <section class="main">
+<!--        <textarea> 标签定义多行的文本输入控件。-->
+        <textarea v-model="content"></textarea>
+    </section>
+
+    <!-- Preview pane -->
+<!--    被包含在article元素中作为主要内容的附属信息部分-->
+    <aside class="preview" v-html="notePreview">
+    </aside>
+
+
+</div>
+
+<!-- Some JavaScript -->
+<script>
+    const html = marked('**Bold** *Italic* [link] (http://vuejs.org/)')
+    console.log (html)
+    new Vue({
+        el: '#notebook',
+        data() {
+            return{
+                content:'this is a note.',
+                // 新的一个笔记本组
+                notes:[]
+            }
+        },
+        created(){
+          this.content=localStorage.getItem("content") || 'You can write in ** markdown **'
+        },
+        computed:{
+            notePreview() {
+                return marked(this.content)
+            },
+        },
+        watch:{
+            // content:{
+            //     // 调用methods中的方法
+            //     handler:"saveNote",
+            //     },
+            content: "saveNote"
+        },
+        methods: {
+            //保存笔记
+            saveNote(){
+                console.log("saving note:",this.content)
+                localStorage.setItem("content",this.content)
+                this.reportOperation("saving")
+            },
+            //添加笔记
+            addNote(){
+                const time=Date.now()
+                const note= {
+                    id: String(time),
+                    title: 'New note ' + (this.notes.length + 1),
+                    content: '** Hi!** This notebook is using ' +
+                        '[markdown](https://github . com/adam-p/markdown-here /wiki/Markdown Cheatsheet) for formatting!',
+                    created: time,
+                    favorite: false,
+                }
+                this.notes.push(note)
+            },
+            reportOperation(){
+                console.log("The ",this.content,"operation was completed")
+            },
+        },
+    })
+</script>
+</body>
+</html>
