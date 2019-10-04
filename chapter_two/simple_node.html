@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <title>Notebook</title>
@@ -18,25 +17,31 @@
     <aside class="side-bar">
         <div class="toolbar">
 <!--            添加笔记按钮-->
-            <button @click="addNote"><i class="material-icons">add</i>Add notes</button>
-            <button v-bind:title="notes.length + 'note(s) already'"></button>
+            <button @click="addNote" v-bind:title="addButtonTitle"><i class="material-icons">add</i>Add note</button>
         </div>
         <!--        这里将是笔记列表-->
+        <div class="notes">
+<!--      {selected: note === selectedNote} 将selected类动态应用在选中的node节点上      -->
+            <div class="note" v-for="note of notes" :class="{selected: note === selectedNote}"
+             @click="selectNote(note)"> {{note.title}}</div>
+        </div>
     </aside>
     <!-- Main pane -->
-<!--    <section> 是HTML5中的新标签，
+<!--可以将重复的v-if放入<template>里面-->
+    <template v-if="selectedNote">
+        <!--    <section> 是HTML5中的新标签，
         标签定义文档中的节（section、区段）。
         比如章节、页眉、页脚或文档中的其他部分。-->
-    <section class="main">
-<!--        <textarea> 标签定义多行的文本输入控件。-->
-        <textarea v-model="content"></textarea>
-    </section>
+        <section class="main">
+    <!--        <textarea> 标签定义多行的文本输入控件。-->
+            <textarea v-model="selectedNote.content"></textarea>
+        </section>
 
-    <!-- Preview pane -->
-<!--    被包含在article元素中作为主要内容的附属信息部分-->
-    <aside class="preview" v-html="notePreview">
-    </aside>
-
+        <!-- Preview pane -->
+    <!--    被包含在article元素中作为主要内容的附属信息部分-->
+        <aside class="preview" v-html="notePreview">
+        </aside>
+    </template>
 
 </div>
 
@@ -48,48 +53,59 @@
         el: '#notebook',
         data() {
             return{
-                content:'this is a note.',
                 // 新的一个笔记本组
-                notes:[]
+                notes:JSON.parse(localStorage.getItem("notes")) || [],
+                selectedId:null
             }
         },
         created(){
           this.content=localStorage.getItem("content") || 'You can write in ** markdown **'
         },
+        // 计算属性声明都在computed里面
         computed:{
+            selectedNote() {
+                return this.notes.find(note =>note.id === this.selectedId)
+            },
             notePreview() {
                 return marked(this.content)
             },
-        },
-        watch:{
-            // content:{
-            //     // 调用methods中的方法
-            //     handler:"saveNote",
-            //     },
-            content: "saveNote"
-        },
-        methods: {
-            //保存笔记
-            saveNote(){
-                console.log("saving note:",this.content)
-                localStorage.setItem("content",this.content)
-                this.reportOperation("saving")
+            addButtonTitle() {
+                return this.notes.length + 'note(s) already'
             },
+        },
+        //监听某一些事件，此处为监听content内容是否变化，一旦变化就会执行saveNote
+        watch:{
+            notes: {
+                handler:"saveNotes",
+                deep:true,
+            },
+        },
+        //可以复用的函数
+        methods: {
             //添加笔记
-            addNote(){
+            addNote () {
                 const time=Date.now()
                 const note= {
                     id: String(time),
                     title: 'New note ' + (this.notes.length + 1),
-                    content: '** Hi!** This notebook is using ' +
-                        '[markdown](https://github . com/adam-p/markdown-here /wiki/Markdown Cheatsheet) for formatting!',
+                    content: '** Hi!** This notebook is using [markdown](https://github.com/adam-p/' +
+                        'markdown-here/wiki/Markdown-Cheatsheet) for formatting!',
                     created: time,
                     favorite: false,
                 }
                 this.notes.push(note)
+                this.selectNote(note)
+            },
+
+            selectNote (note) {
+                this.selectedId = note.id
             },
             reportOperation(){
                 console.log("The ",this.content,"operation was completed")
+            },
+            saveNotes() {
+                localStorage.setItem("notes",JSON.stringify(this.notes))
+                console.log("Notes saved!",new Date())
             },
         },
     })
