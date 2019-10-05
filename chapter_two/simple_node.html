@@ -10,6 +10,7 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!--添加maked库-->
 <script src="https://unpkg.com/marked"></script>
+<script src="https://unpkg.com/moment"></script>
 
 <!-- Notebook app -->
 <div id="notebook">
@@ -22,8 +23,8 @@
         <!--        这里将是笔记列表-->
         <div class="notes">
 <!--      {selected: note === selectedNote} 将selected类动态应用在选中的node节点上      -->
-            <div class="note" v-for="note of notes" :class="{selected: note === selectedNote}"
-             @click="selectNote(note)"> {{note.title}}</div>
+            <div class="note" v-for="note of sortedNotes" :class="{selected: note === selectedNote}"
+             @click="selectNote(note)"><i class="icon material-icons" v-if="note.favorite">star</i> {{note.title}}</div>
         </div>
     </aside>
     <!-- Main pane -->
@@ -33,8 +34,37 @@
         标签定义文档中的节（section、区段）。
         比如章节、页眉、页脚或文档中的其他部分。-->
         <section class="main">
+            <div class="toolbar">
+<!--                placeholder属性是文本框里的提示文字-->
+                <input v-model="selectedNote.title" placeholder="Note title" />
+                <button @click="favoriteNote" title="Favorite note">
+                    <i class="material-icons">{{selectedNote.favorite ? 'star' : "star_border"}}</i>
+                </button>
+                <button @click="removeNote" title="Remove note">
+<!--                    <i> 表示图标这边是删除所有是delete。-->
+                    <i class="material-icons">delete</i>
+                </button>
+            </div>
     <!--        <textarea> 标签定义多行的文本输入控件。-->
             <textarea v-model="selectedNote.content"></textarea>
+            <div class="toolbar status-bar">
+                <span class="date">
+                    <span class="label">Created</span>
+                    <span class="value">{{selectedNote.created | date}}</span>
+                </span>
+                <span class="lines">
+                    <span class="label">Lines</span>
+                    <span class="value">{{linesCount}}</span>
+                </span>
+                <span class="words">
+                    <span class="label">Words</span>
+                    <span class="value">{{wordsCount}}</span>
+                </span>
+                <span class="characters">
+                    <span class="label">Characters</span>
+                    <span class="value">{{charactersCount}}</span>
+                </span>
+            </div>
         </section>
 
         <!-- Preview pane -->
@@ -49,13 +79,15 @@
 <script>
     const html = marked('**Bold** *Italic* [link] (http://vuejs.org/)')
     console.log (html)
+    //Vue 过滤器
+    Vue.filter('date',time => moment(time).format('DD/MM/YY, HH:mm'))
     new Vue({
         el: '#notebook',
         data() {
             return{
                 // 新的一个笔记本组
                 notes:JSON.parse(localStorage.getItem("notes")) || [],
-                selectedId:null
+                selectedId:localStorage.getItem("selected-id") ||null
             }
         },
         created(){
@@ -64,6 +96,7 @@
         // 计算属性声明都在computed里面
         computed:{
             selectedNote() {
+                //find() 方法返回通过测试（函数内判断）的数组的第一个元素的值。
                 return this.notes.find(note =>note.id === this.selectedId)
             },
             notePreview() {
@@ -72,12 +105,39 @@
             addButtonTitle() {
                 return this.notes.length + 'note(s) already'
             },
+            sortedNotes() {
+                return this.notes.slice().sort((a,b)=>a.created-b.created).
+                sort((a,b)=>(a.favorite===b.favorite) ?0 :a.favorite ? -1:1)
+            },
+            linesCount() {
+                if (this.selectedNote){
+                    //计算换行符的个数
+                    return this.selectedNote.content.split(/\r\n|\r|\n/).length
+                }
+            },
+            wordsCount() {
+                if (this.selectedNote){
+                    var s=this.selectedNote.content
+                    // 将换行符转换为空格,排除开头和结尾的空格,将多个重复空格转换为一个
+                    s =s.replace(/\n/g," ").replace(/(^\s*$)/gi,"").replace(/\s\s+/gi," ")
+                    //返回空格数量
+                    return s.split(" ").length
+                }
+            },
+            charactersCount() {
+                if(this.selectedNote){
+                    return this.selectedNote.content.split("").length
+                }
+            }
         },
         //监听某一些事件，此处为监听content内容是否变化，一旦变化就会执行saveNote
         watch:{
             notes: {
                 handler:"saveNotes",
                 deep:true,
+            },
+            selectedId(val) {
+                localStorage.setItem("selected-id",val)
             },
         },
         //可以复用的函数
@@ -96,7 +156,20 @@
                 this.notes.push(note)
                 this.selectNote(note)
             },
-
+            removeNote(){
+              if (this.selectedNote && confirm("Delete the note?")){
+                  const index=this.notes.indexOf(this.selectedNote)
+                  if (index !==-1){
+                      //splice() 方法向数组中添加/删除项目
+                      // index 	必需。整数，规定添加/删除项目的位置，使用负数可从数组结尾处规定位置。
+                      // howmany 	必需。要删除的项目数量。如果设置为 0，则不会删除项目。
+                      this.notes.splice(index,1)
+                  }
+              }
+            },
+            favoriteNote(){
+              this.selectedNote.favorite  =!this.selectedNote.favorite
+            },
             selectNote (note) {
                 this.selectedId = note.id
             },
