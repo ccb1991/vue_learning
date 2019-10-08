@@ -117,5 +117,51 @@ border-bottom: 1px dotted #000;
 <p>Miles walked during half-marathon:<meter min="0" max="13.1" value="5.5" title="Miles">4.5</meter></p>
 <!--使用process表示任务完成进度，不支持该标签的浏览器会显示标签内的值-->
 <p>Current progress: <progress max="100" value="20">0% saved</progress></p>
+alt属性，可以为图像添加一段描述性文本
+<h1>Barcelona's Market</h1>
+<img src="market.jpg" alt="Oranges,bananas, apples, and other fruit abound at the Mercat de la Boquería." />
+<p>The <span lang="es">Mercat de la Boquería</span> is the central market that is just off the
+    Rambles. It's an incredible place, full of every kind of food you might happen to need...</p>
+<!--target属性能让你在浏览器中打开新的一个窗口浏览页面-->
+<a href="test.html" target="doodad">Some page</a>
+<!--使用锚创建跳至页面的特定区域的链接-->
+<article>
+    <header>
+        <h1>Frequently Asked Questions (FAQ)</h1>
+        <nav>
+            <ul>
+<!--                链接锚-->
+                <li><a href="#question-01">Can an id have more than word?</a></li>
+                <li><a href="#question-02">Can visitors bookmark anchor links?</a></li>
+                <li><a href="#question-03">My anchor link isn't working. What am I doing wrong?</a></li>
+            </ul>
+        </nav>
+    </header>
+</article>
+<article>
+<!--    创建锚-->
+    <h2 id="question-01">Can an id have more than word?</h2>
+    <p>Yes, your ids can have more than one word as long as there are no spaces. Separate each word with a dash instead.</p>
+    <h2 id="question-02">Can visitors bookmark anchor links?</h2>
+    <p>Yes, they can! And when they visit that link, the browser will jump down to the anchor as expected. Visitors
+        can share the link with others, too, so all the more reason to choose meaningful anchor names.</p>
+    <h2 id="question-03">My anchor link isn't working. What am I doing wrong?</h2>
+    <p>The problem could be a few things. First, double-check that you added an id (without "#") to the element your
+        link should point to. Also, be sure that the anchor in your link <em>is</em>preceded by "#" and that it matches the anchor id.</p>
+</article>
+<!--各种各样的锚-->
+<h1>Other Types of Links</h1>
+<p>There are lots of different kinds of links that you can create on a webpage. Following are some examples.</p>
+<h2>Images</h2>
+<p>You can link directly to <a href="img/blueflax.jpg">a photo</a> or even make links out of photos.
+    For example, the following image is linked to a flowers photo gallery page.
+    <a href="gallery-flowers.html" title="More flower images"><img src="img/blueflax.jpg" width="165" height="105" alt="Blue Flax" /></a></p>
+<h2>Other Assets</h2>
+<p><a href="media/piano.mp3">Listen to tickling of the ivories</a> (MP3, 1.3 MB) or
+    <a href="media/paddle-steamer.mp4">watch a paddle steamer</a> (MP4, 2.4 MB). These link directly to the files (handy for downloading).</p>
+<h2>Email Addresses</h2>
+<p>Send feedback to <a href="mailto:someone@somedomain.com">someone@somedomain.com</a>.</p>
+<h2>Phone Numbers</h2>
+<p>Call now for free things!<a href="tel:+18001234567">1 (800) 123-4567</a></p>
 </body>
 </html>
