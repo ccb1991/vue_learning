@@ -1,0 +1,16 @@
+body {
+    font-family: Geneva,Tahoma,Verdana;
+}
+
+h1,
+h2 {
+    font-family: "Gill Sans","Gill Sans MT",sans-serif;
+    /*取消粗体*/
+    font-weight: normal;
+}
+
+em,
+a:link,
+.intro .subhead {
+    font-weight: bold;
+}
