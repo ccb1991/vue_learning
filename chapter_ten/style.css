@@ -1,16 +1,118 @@
+/*将html元素得到最小高度设置为当前浏览器窗口高度的100%*/
+/*详细作用见P191图10.10.12*/
+html {
+    min-height: 100%;
+}
+
 body {
-    font-family: Geneva,Tahoma,Verdana;
+    /*同时设置字体大小和样式*/
+    font: 100% Geneva,Tahoma,Verdana,sans-serif;
+    /*font-family: Geneva,Tahoma,Verdana;*/
+    /*font-size: 100%;*/
+    color:blue;
+    /*背景颜色*/
+    background-color: #88b2d2;
+    /*设置背景图片，这里的img/bg-pattern.jpg 是图像相对于样式表所在位置的路径和文件名，*/
+    background-image: url("img/bg-pattern.jpg");
+    /*在底部左下角沿着x轴重复图像*/
+    background-repeat: repeat-x;
+    background-position: left bottom;
+    /*背景图像滚动显示，即当网页内容超过一个屏幕时，鼠标往下滚动才能显示整张图片*/
+    background-attachment: scroll;
 }
 
 h1,
 h2 {
+    /*标题居中对齐*/
+    text-align: center;
     font-family: "Gill Sans","Gill Sans MT",sans-serif;
     /*取消粗体*/
     font-weight: normal;
+    /*设置字偶距，即每个字母的间距*/
+    letter-spacing: 1px;
+    /*设置字间距，即每个单词的间距*/
+    word-spacing: 7px;
 }
 
+h1 {
+    font-size: 2.1875em;
+    /*所有字母大写*/
+    text-transform: uppercase;
+}
+
+h2 {
+    color: #7d717c;
+    background-color: #eaebef;
+    font-size: 1.75em;
+    /*有一些字体有小型大写字母变体，详细区别见P199图10.15.2与图10.14.2中h2标题的区别*/
+    font-variant: small-caps;
+}
+
+p {
+    text-align: justify;
+}
 em,
 a:link,
 .intro .subhead {
+    /*伪粗体*/
+    text-align: center;
     font-weight: bold;
+}
+
+a:link {
+    color:#e10000;
+    /*去除链接标签的默认下划线样式*/
+    text-decoration: none;
+}
+
+/*设置访问者已经激活过的链接的外观*/
+a:visited {
+    color:#b44f4f;
+}
+
+a:hover {
+    color: #f00;
+    /*增加下划线装饰*/
+    text-decoration: underline;
+}
+
+/*鼠标点击未释放时的状态*/
+a:active {
+    color: green;
+}
+
+.intro a {
+    color: #fdb09d; /* 略带粉色 */
+}
+
+.intro {
+    line-height: 1.45;
+    background-color: #686a63;
+    color: #fff;
+    padding: 1px 1.875em .7em;
+}
+
+/*hover表示鼠标悬停时的伪状态*/
+.intro a:hover {
+    color: #fec4b6;
+}
+
+.intro .subhead {
+    font-size: 1.125em; /* 18px/16px */
+}
+.intro p {
+    font-size: 1.0625em; /* 17px/16px */
+}
+.project p {
+    font-size: .9375em; /* 15px/16px */
+    line-height: 1.65;
+    /*段落首行缩进根据font-size大小决定，这段代码为p 元素添加了2em 的缩进。
+    由于0.9375的字体大小等于15像素（15/16=0.9375），因此这个缩进约为30 像素*/
+    text-indent: 2em;
+}
+
+/*因为intro是architect的后代所以intro的背景设置对intro类具有更高的优先级*/
+.architect{
+    background-color: #fff;
+    padding:1.5em 1.75em;
 }
