@@ -99,6 +99,11 @@ a:active {
 
 .intro .subhead {
     font-size: 1.125em; /* 18px/16px */
+
+    color: lime;
+    text-shadow: 3px 2px 2px black;
+    /*确保所有空格不断行，也就是文本全部显示在一行*/
+    /*white-space: nowrap;*/
 }
 .intro p {
     font-size: 1.0625em; /* 17px/16px */
