@@ -1,0 +1,45 @@
+div { /* 包含块 */
+    background: khaki; /* tan */
+    width: 600px;
+}
+p,
+.second {
+    background: white;
+    border: 3px solid royalblue;
+    margin: 10px;
+    padding: 8px;
+}
+.second { /* 第二个段落 */
+    border-color: orangered;
+    width: 200px;
+}
+
+.nav-main {
+    /* 绿色 */
+    border-top: 5px solid #019443;
+    /* 灰色 */
+    border-bottom: 1px solid #c8c8c8;
+    padding: .45em 0 .5em;
+}
+
+.nav-main li {
+    border-left: 1px solid #c8c8c8;
+    display: inline-block;
+}
+.nav-main li:first-child {
+    border-left: none;
+}
+
+.nav-main a {
+    color: #292929;
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.125em; /* 18px/16px */
+    font-weight: 700;
+    padding: .5em 1.15em .5em 1.4em;
+    text-transform: uppercase;
+}
+
+.about img {
+    border: 5px solid #bebebe;
+}
