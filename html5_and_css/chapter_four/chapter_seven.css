@@ -15,3 +15,13 @@ img {
     float: left; /* makes text wrap it */
     margin-right: 1em;
 }
+
+em {
+    background: lightgreen;
+    display: inline-block;
+    width: 300px;
+    /*会在被隐藏的元素处留下空白*/
+    visibility: hidden;
+    /*隐藏该标签并且不会留下空白*/
+    /*display: none;*/
+}
