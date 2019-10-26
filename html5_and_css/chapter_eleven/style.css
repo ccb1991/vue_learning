@@ -1,6 +1,5 @@
 div { /* 包含块 */
     background: khaki; /* tan */
-    width: 600px;
 }
 p,
 .second {
@@ -23,6 +22,7 @@ p,
 }
 
 .nav-main li {
+    /*给元素添加左边的边框*/
     border-left: 1px solid #c8c8c8;
     display: inline-block;
 }
@@ -42,4 +42,102 @@ p,
 
 .about img {
     border: 5px solid #bebebe;
+}
+
+.about h2,
+.mod h2 {
+    font-size: 0.875em;
+}
+
+.about h2,
+.mod h2,
+.nav-main a {
+    font-family: 'Open Sans',sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.mod h2 {
+    /*h2底部添加1像素的实线边框*/
+    border-bottom: 1px solid #dbdbdb;
+    padding-bottom: 0.75em;
+}
+
+.footer p {
+    font-size: .6875em;
+}
+
+.post-footer {
+    border-bottom: 1px solid #dbdbdb;
+    border-top:1px solid #dbdbdb;
+    padding-bottom:.7em;
+    padding-top: 0.7em
+}
+
+p {
+    border: 10px solid red;
+    padding: 15px;
+}
+.ddd {
+    border-width: 4px;
+    /*每个border属性都接受四个值，详细规则见p220*/
+    border-style: dotted dashed double;
+}
+.ridge {
+    border-style: ridge;
+    border-color: orange;
+}
+.groove {
+    border-style: groove;
+    border-color: purple;
+}
+.inset {
+    border-style: inset;
+    border-color: blue;
+}
+.outset {
+    border-style: outset;
+    border-color: green;
+}
+
+h1 {
+    color: #212121;
+    font-family: "Lato", sans-serif;
+    font-size: 3.25em; /* 36px/16px */
+    font-weight: 300;
+    letter-spacing: -2px;
+    line-height: .975;
+    margin-bottom: .4125em; /* 21.45px */
+}
+
+.map {
+    /*给元素添加外边距*/
+    margin: 1.4375em 0 .8125em;
+    /* 23px 0 13px */
+}
+.links {
+    margin: 1.5em 0 4.125em;
+    /* 24px 0 66px */
+    padding: 0;
+}
+.links li {
+    /*底部添加外边距*/
+    margin-bottom: 1.1em;
+}
+
+.post-photo {
+    float: left;
+    margin-bottom: 2px;
+    margin-right: 22px;
+}
+
+main {
+    float: left;
+    width: 600px;
+}
+
+.sidebar {
+    float: right;
+    margin-top: 1.875em;
+    width: 300px;
 }
