@@ -1,3 +1,29 @@
+article, aside, figcaption, figure, footer,
+header, main, nav, section {
+    display: block;
+}
+
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    margin: 0;
+}
+a:focus {
+    outline: thin dotted;
+}
+a:active,
+a:hover {
+    outline: 0;
+}
+small {
+    font-size: 80%;
+}
+img {
+    border: 0;
+}
+
 div { /* 包含块 */
     background: khaki; /* tan */
 }
@@ -71,13 +97,11 @@ p,
     border-bottom: 1px solid #dbdbdb;
     border-top:1px solid #dbdbdb;
     padding-bottom:.7em;
-    padding-top: 0.7em
+    padding-top: 0.7em;
+    clear:left;
 }
 
-p {
-    border: 10px solid red;
-    padding: 15px;
-}
+
 .ddd {
     border-width: 4px;
     /*每个border属性都接受四个值，详细规则见p220*/
@@ -140,4 +164,49 @@ main {
     float: right;
     margin-top: 1.875em;
     width: 300px;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+
+.container {
+    background: url("./img/bg.png") repeat-y 629px 0;
+    padding-bottom: 1.9375em;
+}
+
+/*设置标签名称为footer 且属性role值为contentinfo的元素样式*/
+footer[role="contentinfo"] {
+    border-top: 1px solid #cacbcb;
+}
+
+.masthead {
+    position: relative;
+}
+
+.masthead .social-sites {
+    position: absolute;
+    top: 41px;
+    right: 0;
+}
+
+/*设置页面大小的基数 max-width*/
+.page {
+    max-width: 960px;
+}
+/*根据基数计算大小*/
+main {
+    /* 要求宽度/包含块宽度使用600px/960px */
+    width: 62.5%;
+}
+.sidebar {
+    width: 31.25%; /* 300px/960px */
 }
