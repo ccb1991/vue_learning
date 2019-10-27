@@ -1,0 +1,15 @@
+ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 30px;
+    /*设置标记类型，如罗马字母等*/
+    list-style-type: lower-alpha;
+    /*将标记在块内显示*/
+    list-style-position: inside;
+}
+li {
+    /*最后两位表示图片的位置*/
+    background: url('./img/checkmark.png') no-repeat 0 0.1em;
+    line-height: 1.8;
+    padding-left: 1.75em;
+}
