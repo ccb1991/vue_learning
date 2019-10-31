@@ -1,0 +1,5 @@
+/*为获得焦点的元素提供背景色*/
+input:focus,
+textarea:focus {
+    background-color: greenyellow;
+}

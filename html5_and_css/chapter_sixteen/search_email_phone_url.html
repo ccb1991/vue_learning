@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <p class="row">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" class="field-large" required="required"/>
+    </p>
+    <div class="row">
+        <label for="website">Website URL:</label>
+        <input type="url" id="website" name="website" class="field-large" placeholder="http://www.example.com" />
+        <p class="instructions">Have a site or a blog? Put the address here, beginning with<kbd>http://</kbd> or <kbd>https://</kbd>.</p>
+    </div>
+    <p class="row">
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" class="field-large" placeholder="xxx-xxx-xxxx" pattern="\d{3}-\d{3}-\d{4}" />
+    </p>
+    <form method="get" action="search-results.php" role="search">
+        <label for="search">Search:</label>
+<!--        readonly属性让文本框只能只读-->
+        <input type="search" id="search" name="search" size="30"
+               placeholder="e.g., a book or magazine" value="123" readonly="readonly"/>
+<!--        disabled属性禁用文本框，与只读不同的是，只读字段可以获得焦点但不能修改这些文本，禁用则不能获得焦点-->
+        <input type="submit" value="Find It!" disabled="disabled"/>
+    </form>
+<!--单选按钮-->
+    <fieldset class="radios">
+        <legend>Gender:</legend>
+        <p class="row">
+<!--            checked属性为单选按钮添加默认值-->
+            <input type="radio" id="gender-male" name="gender" value="male" checked="checked" />
+            <label for="gender-male">Male</label>
+        </p>
+        <p class="row">
+            <input type="radio" id="gender-female" name="gender" value="female" />
+            <label for="gender-female">Female</label>
+        </p>
+    </fieldset>
+
+<!--复选框-->
+    <div class="fields checkboxes">
+        <p class="row">
+            <input type="checkbox" id="email-ok-msg-from-users" name="email_signup[]" value="user-emails" />
+            <label for="email-ok-msg-from-users">It is okay to email me with messages from other users.</label>
+        </p>
+        <p class="row">
+            <input type="checkbox" id="email-ok-occasional-updates" name="email_signup[]" value="occasional-updates" />
+            <label for="email-ok-occasional-updates">It is okay to email me with occasional promotions about our other products.</label>
+        </p>
+        <p>
+<!--            重置按钮-->
+            <input type="reset">
+        </p>
+    </div>
+
+    <label for="bio">Bio:</label>
+<!--    文本区域，row控制文本区域高度，cols控制文本区域宽度,maxlength限制文本长度，“123123”文本区域默认文本-->
+    <textarea id="bio" name="bio" cols="40" rows="5" class="field-large" maxlength="10">123123</textarea>
+<!--下拉样式的选择框-->
+    <label for="state">State:</label>
+    <select id="state" name="state" >
+        <option value="AL">Alabama</option>
+<!--        selected选择默认被选中的项-->
+        <option value="AK" selected="selected">Alaska</option>
+    </select>
+
+<!--分组下拉菜单样式-->
+    <label for="referral">Where did you find out about us?</label>
+    <select id="referral" name="referral">
+        <optgroup label="Online">
+            <option value="social_network">Social Network</option>
+            <option value="search_engine">Search Engine</option>
+        </optgroup>
+        <optgroup label="Offline">
+            <option value="postcard">Postcard</option>
+            <option value="word_of_mouth">Word of Mouth</option>
+        </optgroup>
+    </select>
+
+<!--上传文件-->
+    <form method="post" action="show-data.php" enctype="multipart/form-data">
+        <label for="picture">Picture:</label>
+<!--        multiple支持选择多个文件上传-->
+        <input type="file" id="picture" name="picture" multiple="multiple" />
+        <p class="instructions">Maximum size of 700k. JPG, GIF or PNG.</p>
+    </form>
+
+<!--    提交按钮-->
+    <input type="submit" value="Create Profile" class="btn" />
+
+<!--    使用图像的提交按钮-->
+    <input type="image" src="./cover-sm-htmlcssvqs-8ed.jpg" width="188" height="95" alt="Create Profile"/>
+
+<!--结合文本和图像的提交按钮-->
+    <button type="submit" class="btn">
+        <img src="./cover-sm-htmlcssvqs-8ed.jpg" width="21" height="21" alt=""/>Create Profile
+    </button>
+
+    <div id="choices">
+        <p>
+            <input type="radio" name="how" value="advertisement" id="advertisement"/>
+            <label for="advertisement">Advertisement</label>
+        </p>
+        <p>
+            <input type="radio" name="how" value="other" id="other" />
+            <label for="other">Other</label>
+        </p>
+        <p>
+            <textarea id="other-description" cols="35" rows="5" placeholder="TV, school, bingo game,etc."
+            title="Please describe how you heard about us." disabled="disabled"></textarea>
+        </p>
+        <input type="submit" value="Submit" class="btn"/>
+    </div>
+    <script src="./toggle-textarea.js"></script>
+</body>
+</html>
